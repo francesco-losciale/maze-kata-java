@@ -1,19 +1,33 @@
 package com.katas.maze;
 
 public class Player {
-    private String currentPosition;
-    private Grid grid;
 
-    public Player(String currentPosition, Grid grid) {
-        this.currentPosition = currentPosition;
+    private Grid grid;
+    private Position position;
+
+    public Player(Grid grid, Position position) {
         this.grid = grid;
+        this.position = position;
+        this.grid.markInitialCell(position);
     }
 
-    public String executeMove(Character instruction) {
+    public void executeInstruction(Character instruction) {
         if (instruction == 'E') {
-            this.currentPosition = "1 0";
-            this.grid.markCell(currentPosition);
+            position.moveEast();
         }
-        return currentPosition;
+        if (instruction == 'W') {
+            position.moveWest();
+        }
+        if (instruction == 'N') {
+            position.moveNorth();
+        }
+        if (instruction == 'S') {
+            position.moveSouth();
+        }
+        this.grid.markCellUsed(position);
+    }
+
+    public Position getPosition() {
+        return this.position;
     }
 }

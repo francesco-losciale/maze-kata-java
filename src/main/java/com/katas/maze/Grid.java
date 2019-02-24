@@ -1,20 +1,40 @@
 package com.katas.maze;
 
+import java.util.Arrays;
+
 public class Grid {
 
-    private String[][] gridOutput;
+    private Character[][] gridOutput;
 
-    public Grid(String plateauEdge, String startPosition) {
+    public Grid(String plateauEdge) {
         initializeGrid(plateauEdge);
-        setCellValue(startPosition, "S");
     }
 
-    public void markCell(String position) {
-        setCellValue(position, "X");
+    public void markInitialCell(Position position) {
+        setCellValue(position.getX(), position.getY(), 'S');
+    }
+
+    public void markCellUsed(Position position) {
+        setCellValue(position.getX(), position.getY(), 'X');
     }
 
     @Override
     public String toString() {
+        StringBuilder sb = new StringBuilder();
+//        sb.append(Arrays.deepToString(gridOutput));
+        for (int i = 0; i < gridOutput.length; i++) {
+            for (int j = 0; j < gridOutput[i].length; j++) {
+                if (gridOutput[i][j] != null) {
+                    sb.append(gridOutput[i][j]);
+                    if (j + 1 < gridOutput[i].length && gridOutput[i][j + 1] != null) {
+                        sb.append(" ");
+                    }
+                }
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
+        /*
         String output = "";
         for (String[] line : gridOutput) {
             for (int index = 0; index < line.length; index++) {
@@ -27,23 +47,21 @@ public class Grid {
             }
             output += "\n";
         }
-        return output;
+        return output;*/
     }
 
     private void initializeGrid(String plateauEdge) {
         int limitX = Integer.parseInt(plateauEdge.substring(0, 1));
         int limitY = Integer.parseInt(plateauEdge.substring(2, 3));
-        this.gridOutput = new String[limitX][limitY];
+        this.gridOutput = new Character[limitX][limitY];
         for (int i = 0; i < limitX; i++) {
             for (int j = 0; j < limitY; j++) {
-                this.gridOutput[i][j] = "0";
+                this.gridOutput[i][j] = '0';
             }
         }
     }
 
-    private void setCellValue(String position, String value) {
-        int positionX = Integer.parseInt(position.substring(0, 1));
-        int positionY = Integer.parseInt(position.substring(2, 3));
-        this.gridOutput[positionY][positionX] = value;
+    private void setCellValue(int x, int y, Character value) {
+        this.gridOutput[x][y] = value;
     }
 }
