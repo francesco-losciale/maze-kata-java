@@ -8,8 +8,8 @@ public class PlayerTest {
 
     @Test
     public void testPlayerInstantiation() {
-        Position playerPosition = new Position("0 0");
-        Grid grid = new Grid("5 5");
+        Position playerPosition = new Position("0 0", "2 2");
+        Grid grid = new Grid("2 2");
         Player player = new Player(grid, playerPosition);
         assertEquals(player.getPosition().toString(), "0 0");
     }

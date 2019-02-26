@@ -1,13 +1,19 @@
 package com.katas.maze;
 
-import java.util.Arrays;
-
 public class Grid {
 
-    private Character[][] gridOutput;
+    private Integer wallX;
+    private Integer wallY;
+    private Character[][] gridOutput; // 0,0 is upper-left cell, x goes right while y goes bottom
 
     public Grid(String plateauEdge) {
         initializeGrid(plateauEdge);
+    }
+
+    public Grid(String plateauCoordinates, String wallCellPosition) {
+        this(plateauCoordinates);
+        this.wallX = Integer.parseInt(wallCellPosition.substring(0, 1));
+        this.wallY = Integer.parseInt(wallCellPosition.substring(0, 1));
     }
 
     public void markInitialCell(Position position) {
@@ -21,7 +27,6 @@ public class Grid {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-//        sb.append(Arrays.deepToString(gridOutput));
         for (int i = 0; i < gridOutput.length; i++) {
             for (int j = 0; j < gridOutput[i].length; j++) {
                 if (gridOutput[i][j] != null) {
@@ -34,20 +39,6 @@ public class Grid {
             sb.append("\n");
         }
         return sb.toString();
-        /*
-        String output = "";
-        for (String[] line : gridOutput) {
-            for (int index = 0; index < line.length; index++) {
-                if (line[index] != null) {
-                    output = output + line[index];
-                    if (index + 1 < line.length && line[index + 1] != null) {
-                        output += " ";
-                    }
-                }
-            }
-            output += "\n";
-        }
-        return output;*/
     }
 
     private void initializeGrid(String plateauEdge) {
@@ -62,6 +53,10 @@ public class Grid {
     }
 
     private void setCellValue(int x, int y, Character value) {
-        this.gridOutput[x][y] = value;
+        if (this.wallX != null && this.wallX == x &&
+                this.wallY != null && this.wallY == y) {
+            throw new RuntimeException("Here there is a wall");
+        }
+        this.gridOutput[y][x] = value;
     }
 }
