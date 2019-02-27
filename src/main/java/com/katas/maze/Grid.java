@@ -13,7 +13,7 @@ public class Grid {
     public Grid(String plateauCoordinates, String wallCellPosition) {
         this(plateauCoordinates);
         this.wallX = Integer.parseInt(wallCellPosition.substring(0, 1));
-        this.wallY = Integer.parseInt(wallCellPosition.substring(0, 1));
+        this.wallY = Integer.parseInt(wallCellPosition.substring(2, 3));
     }
 
     public void markInitialCell(Position position) {
@@ -53,10 +53,11 @@ public class Grid {
     }
 
     private void setCellValue(int x, int y, Character value) {
-        if (this.wallX != null && this.wallX == x &&
-                this.wallY != null && this.wallY == y) {
-            throw new RuntimeException("Here there is a wall");
-        }
         this.gridOutput[y][x] = value;
+    }
+
+    public boolean isPositionAgainstWall(Position position) {
+        return this.wallX != null && this.wallX == position.getX() &&
+                this.wallY != null && this.wallY == position.getY();
     }
 }

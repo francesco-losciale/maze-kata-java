@@ -61,4 +61,21 @@ public class GridMovementTest {
         Player player = new Player(grid, playerPosition);
         player.executeInstruction(instruction);
     }
+
+    @Test
+    public void testMovementAgainstWallDoesNotChangeGrid() throws Exception {
+        final String initialGrid = "S 0\n0 0\n";
+        final String currentPosition = "0 0";
+        final String plateauCoordinates = "2 2";
+        final Character instruction = 'E';
+        final String wallCellPosition = "1 0";
+        Position playerPosition = new Position(currentPosition, plateauCoordinates);
+        Grid grid = new Grid(plateauCoordinates, wallCellPosition);
+        Player player = new Player(grid, playerPosition);
+        try {
+            player.executeInstruction(instruction);
+        } catch (Exception e) {
+            assertEquals(initialGrid.trim(), grid.toString().trim());
+        }
+    }
 }

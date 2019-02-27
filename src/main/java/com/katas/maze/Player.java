@@ -12,17 +12,22 @@ public class Player {
     }
 
     public void executeInstruction(Character instruction) {
+        final Position currentPosition = getPosition();
         if (instruction == 'E') {
-            position.moveEast();
+            this.position = this.position.moveEast();
         }
         if (instruction == 'W') {
-            position.moveWest();
+            this.position = this.position.moveWest();
         }
         if (instruction == 'N') {
-            position.moveNorth();
+            this.position = this.position.moveNorth();
         }
         if (instruction == 'S') {
-            position.moveSouth();
+            this.position = this.position.moveSouth();
+        }
+        if (this.grid.isPositionAgainstWall(position)) {
+            this.position = currentPosition;
+            throw new RuntimeException("Wall Found!");
         }
         this.grid.markCellUsed(position);
     }
