@@ -8,10 +8,10 @@ public class PlayerTest {
 
     @Test
     public void testPlayerInstantiation() {
-        Position playerPosition = new Position("0 0", "2 2");
-        Grid grid = new Grid("2 2");
+        Grid grid = new Grid("3 3");
+        Position playerPosition = Position.createInitialPosition(grid, "2 2");
         Player player = new Player(grid, playerPosition);
-        assertEquals(player.getPosition().toString(), "0 0");
+        assertEquals(player.getPosition().toString(), "2 2");
     }
 
 }

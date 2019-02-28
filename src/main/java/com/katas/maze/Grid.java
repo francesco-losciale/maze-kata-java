@@ -1,7 +1,11 @@
 package com.katas.maze;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Grid {
 
+    private List<WallPosition> wallPositionList = new ArrayList<WallPosition>();
     private Integer wallX;
     private Integer wallY;
     private Character[][] gridOutput; // 0,0 is upper-left cell, x goes right while y goes bottom
@@ -14,6 +18,11 @@ public class Grid {
         this(plateauCoordinates);
         this.wallX = Integer.parseInt(wallCellPosition.substring(0, 1));
         this.wallY = Integer.parseInt(wallCellPosition.substring(2, 3));
+    }
+
+    public Grid(String plateauCoordinates, List<WallPosition> wallPositionList) {
+        this(plateauCoordinates);
+        this.wallPositionList = wallPositionList;
     }
 
     public void markInitialCell(Position position) {
@@ -59,5 +68,17 @@ public class Grid {
     public boolean isPositionAgainstWall(Position position) {
         return this.wallX != null && this.wallX == position.getX() &&
                 this.wallY != null && this.wallY == position.getY();
+    }
+
+    public int getLimitX() {
+        return this.gridOutput.length;
+    }
+
+    public int getLimitY() {
+        return getLimitX() > 0 ? this.gridOutput[0].length : 0;
+    }
+
+    public List<WallPosition> getWallPositionList() {
+        return wallPositionList;
     }
 }
