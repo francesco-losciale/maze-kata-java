@@ -1,5 +1,9 @@
 package com.katas.maze;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class Player {
 
     private Grid grid;
@@ -34,5 +38,9 @@ public class Player {
 
     public Position getPosition() {
         return this.position;
+    }
+
+    public List<String> findEndPosition() {
+        return Collections.emptyList();
     }
 }
