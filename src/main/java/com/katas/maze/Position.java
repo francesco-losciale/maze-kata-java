@@ -7,14 +7,14 @@ public class Position {
     private int currentY;
     private int currentX;
 
-    private Position(String currentPosition, int plateauX, int plateauY) {
+    protected Position(String currentPosition, int plateauX, int plateauY) {
         this.currentX = Integer.parseInt(currentPosition.substring(0, 1));
         this.currentY = Integer.parseInt(currentPosition.substring(2, 3));
         this.plateauX = plateauX;
         this.plateauY = plateauY;
     }
 
-    static public Position createInitialPosition(Grid grid, String currentPosition) {
+    static public Position createPosition(Grid grid, String currentPosition) {
         return new Position(currentPosition, grid.getLimitX(), grid.getLimitY());
     }
 
@@ -27,27 +27,27 @@ public class Position {
     }
 
     public Position moveWest() {
-        this.currentX -= 1;
-        if (this.currentX == -1) {
-            this.currentX = this.plateauX - 1;
+        int currentX = this.currentX - 1;
+        if (currentX == -1) {
+            currentX = this.plateauX - 1;
         }
-        return new Position(this.toString(), this.plateauX, this.plateauY);
+        return new Position(currentX + " " + this.currentY, this.plateauX, this.plateauY);
     }
 
     public Position moveNorth() {
-        this.currentY -= 1;
-        if (this.currentY == -1) {
-            this.currentY = this.plateauY - 1;
+        int currentY = this.currentY - 1;
+        if (currentY == -1) {
+            currentY = this.plateauY - 1;
         }
-        return new Position(this.toString(), this.plateauX, this.plateauY);
+        return new Position(this.currentX + " " + currentY, this.plateauX, this.plateauY);
     }
 
     public Position moveSouth() {
-        this.currentY += 1;
-        if (this.currentY >= this.plateauY) {
-            this.currentY = 0;
+        int currentY = this.currentY + 1;
+        if (currentY >= this.plateauY) {
+            currentY = 0;
         }
-        return new Position(this.toString(), this.plateauX, this.plateauY);
+        return new Position(this.currentX + " " + currentY, this.plateauX, this.plateauY);
     }
 
     public int getY() {
@@ -66,10 +66,7 @@ public class Position {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
         Position position = (Position) o;
-
         if (currentY != position.currentY) return false;
         return currentX == position.currentX;
     }

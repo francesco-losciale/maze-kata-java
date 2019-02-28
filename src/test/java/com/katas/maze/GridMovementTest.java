@@ -7,18 +7,19 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @RunWith(JUnitParamsRunner.class)
 public class GridMovementTest {
 
-    // TODO test grid plateau 10 10
-
     @Test
     public void testGridPlateauLimits() throws Exception {
-        assertEquals(new Grid("5 1", "0 0").getLimitX(), 5);
-        assertEquals(new Grid("1 5", "0 0").getLimitY(), 5);
+        assertEquals(new Grid("5 1").getLimitX(), 5);
+        assertEquals(new Grid("1 5").getLimitY(), 5);
+    }
+
+    @Test
+    public void testGridPlateauLargeLimits() throws Exception {
+        assertEquals(new Grid("10 15").getLimitX(), 10);
+        assertEquals(new Grid("10 15").getLimitY(), 15);
     }
 
     @Test
@@ -34,7 +35,7 @@ public class GridMovementTest {
                                            String plateauCoordinates,
                                            String expectedGridOutput) {
         Grid grid = new Grid(plateauCoordinates);
-        Position playerPosition = Position.createInitialPosition(grid, currentPosition);
+        Position playerPosition = Position.createPosition(grid, currentPosition);
         Player player = new Player(grid, playerPosition);
         player.executeInstruction(instruction);
         assertEquals(endPosition, player.getPosition().toString());
@@ -54,18 +55,11 @@ public class GridMovementTest {
                                            String plateauCoordinates,
                                            String expectedGridOutput) {
         Grid grid = new Grid(plateauCoordinates);
-        Position playerPosition = Position.createInitialPosition(grid, currentPosition);
+        Position playerPosition = Position.createPosition(grid, currentPosition);
         Player player = new Player(grid, playerPosition);
         player.executeInstruction(instruction);
         assertEquals(endPosition, player.getPosition().toString());
         assertEquals(expectedGridOutput, grid.toString().trim());
-    }
-
-    @Test
-    public void testGridInstantiationWithWall() throws Exception {
-        List<WallPosition> expectedWallPositionList = new ArrayList<WallPosition>();
-        Grid grid = new Grid("5 5", expectedWallPositionList);
-        assertEquals(expectedWallPositionList, grid.getWallPositionList());
     }
 
     @Test(expected = RuntimeException.class)
@@ -73,9 +67,9 @@ public class GridMovementTest {
         final String currentPosition = "0 0";
         final String plateauCoordinates = "2 2";
         final Character instruction = 'E';
-        final String wallCellPosition = "1 0";
-        Grid grid = new Grid(plateauCoordinates, wallCellPosition);
-        Position playerPosition = Position.createInitialPosition(grid, currentPosition);
+        Grid grid = new Grid(plateauCoordinates);
+        grid.addWallAtCoordinates("1 0");
+        Position playerPosition = Position.createPosition(grid, currentPosition);
         Player player = new Player(grid, playerPosition);
         player.executeInstruction(instruction);
     }
@@ -86,9 +80,9 @@ public class GridMovementTest {
         final String currentPosition = "0 0";
         final String plateauCoordinates = "2 2";
         final Character instruction = 'E';
-        final String wallCellPosition = "1 0";
-        Grid grid = new Grid(plateauCoordinates, wallCellPosition);
-        Position playerPosition = Position.createInitialPosition(grid, currentPosition);
+        Grid grid = new Grid(plateauCoordinates);
+        grid.addWallAtCoordinates("1 0");
+        Position playerPosition = Position.createPosition(grid, currentPosition);
         Player player = new Player(grid, playerPosition);
         try {
             player.executeInstruction(instruction);

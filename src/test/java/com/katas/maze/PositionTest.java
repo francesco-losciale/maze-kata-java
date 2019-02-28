@@ -13,7 +13,7 @@ public class PositionTest {
     public void testPositionInstantiation() {
         final String plateauCoordinates = "2 2";
         final Grid grid = new Grid(plateauCoordinates);
-        final Position position = Position.createInitialPosition(grid, "0 0");
+        final Position position = Position.createPosition(grid, "0 0");
         assertEquals(position.getX(), 0);
         assertEquals(position.getY(), 0);
     }
@@ -23,9 +23,8 @@ public class PositionTest {
         final String currentPosition = "0 0";
         final String plateauCoordinates = "2 2";
         final Character instruction = 'E';
-        final String wallCellPosition = "1 0";
-        Grid grid = new Grid(plateauCoordinates, wallCellPosition);
-        Position playerPosition = Position.createInitialPosition(grid, currentPosition);
+        Grid grid = new Grid(plateauCoordinates).addWallAtCoordinates("1 0");
+        Position playerPosition = Position.createPosition(grid, currentPosition);
         Player player = new Player(grid, playerPosition);
         try {
             player.executeInstruction(instruction);
@@ -40,7 +39,7 @@ public class PositionTest {
     public void testPositionIsImmutable() throws Exception {
         final String plateauCoordinates = "2 2";
         final Grid grid = new Grid(plateauCoordinates);
-        final Position position = Position.createInitialPosition(grid, "0 0");
+        final Position position = Position.createPosition(grid, "0 0");
         assertNotEquals(position, position.moveEast());
         assertNotEquals(position, position.moveWest());
         assertNotEquals(position, position.moveNorth());

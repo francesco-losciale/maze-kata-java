@@ -5,24 +5,11 @@ import java.util.List;
 
 public class Grid {
 
-    private List<WallPosition> wallPositionList = new ArrayList<WallPosition>();
-    private Integer wallX;
-    private Integer wallY;
+    private List<Position> wallPositionList = new ArrayList<Position>();
     private Character[][] gridOutput; // 0,0 is upper-left cell, x goes right while y goes bottom
 
     public Grid(String plateauEdge) {
         initializeGrid(plateauEdge);
-    }
-
-    public Grid(String plateauCoordinates, String wallCellPosition) {
-        this(plateauCoordinates);
-        this.wallX = Integer.parseInt(wallCellPosition.substring(0, 1));
-        this.wallY = Integer.parseInt(wallCellPosition.substring(2, 3));
-    }
-
-    public Grid(String plateauCoordinates, List<WallPosition> wallPositionList) {
-        this(plateauCoordinates);
-        this.wallPositionList = wallPositionList;
     }
 
     public void markInitialCell(Position position) {
@@ -51,8 +38,8 @@ public class Grid {
     }
 
     private void initializeGrid(String plateauEdge) {
-        int limitX = Integer.parseInt(plateauEdge.substring(0, 1));
-        int limitY = Integer.parseInt(plateauEdge.substring(2, 3));
+        int limitX = Integer.parseInt(plateauEdge.split(" ")[0]);
+        int limitY = Integer.parseInt(plateauEdge.split(" ")[1]);
         this.gridOutput = new Character[limitX][limitY];
         for (int i = 0; i < limitX; i++) {
             for (int j = 0; j < limitY; j++) {
@@ -66,8 +53,7 @@ public class Grid {
     }
 
     public boolean isPositionAgainstWall(Position position) {
-        return this.wallX != null && this.wallX == position.getX() &&
-                this.wallY != null && this.wallY == position.getY();
+        return this.wallPositionList.contains(position);
     }
 
     public int getLimitX() {
@@ -78,7 +64,10 @@ public class Grid {
         return getLimitX() > 0 ? this.gridOutput[0].length : 0;
     }
 
-    public List<WallPosition> getWallPositionList() {
-        return wallPositionList;
+    public Grid addWallAtCoordinates(String wallPosition) {
+        this.wallPositionList.add(
+                Position.createPosition(this, wallPosition)
+        );
+        return this;
     }
 }
