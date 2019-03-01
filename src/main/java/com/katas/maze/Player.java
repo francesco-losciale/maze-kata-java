@@ -1,7 +1,6 @@
 package com.katas.maze;
 
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
@@ -40,7 +39,38 @@ public class Player {
         return this.position;
     }
 
-    public List<String> findEndPosition() {
-        return Collections.emptyList();
+    public Position findEndPosition() {
+        Position endPosition = Position.createPosition(this.grid, "0 0");
+        return endPosition;
     }
+
+    public List<Character> getPossibleOtherCells(List<Position> visitedPositionList) {
+        List<Character> result = new ArrayList<Character>();
+        try {
+            if (!visitedPositionList.contains(this.position.moveEast())) {
+                result.add('E');
+            }
+        } catch (RuntimeException e) {
+        }
+        try {
+            if (!visitedPositionList.contains(this.position.moveWest())) {
+                result.add('W');
+            }
+        } catch (RuntimeException e) {
+        }
+        try {
+            if (!visitedPositionList.contains(this.position.moveNorth())) {
+                result.add('N');
+            }
+        } catch (RuntimeException e) {
+        }
+        try {
+            if (!visitedPositionList.contains(this.position.moveSouth())) {
+                result.add('S');
+            }
+        } catch (RuntimeException e) {
+        }
+        return result;
+    }
+
 }
