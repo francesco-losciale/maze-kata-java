@@ -4,9 +4,9 @@ public class Player {
 
     private Grid grid;
     private Position position;
-    private TryAllPossibleDirectionsStrategy strategy;
+    private SearchStrategy strategy;
 
-    public Player(Grid grid, Position position, TryAllPossibleDirectionsStrategy strategy) {
+    public Player(Grid grid, Position position, SearchStrategy strategy) {
         this.grid = grid;
         this.position = position;
         this.strategy = strategy;
@@ -20,7 +20,7 @@ public class Player {
     }
 
     public void executeInstruction(Character instruction) {
-        Position newPosition = executePositionMovement(this.position, instruction);
+        Position newPosition = calculateNextPosition(this.position, instruction);
         this.position = newPosition;
         this.grid.markCellUsed(newPosition);
     }
@@ -35,13 +35,17 @@ public class Player {
         }
         checkAllRequisitesDefined();
         for (Character instruction : this.strategy.getPossibleDirection(startPosition)) {
-            Position newPosition = executePositionMovement(startPosition, instruction); // TODO fix this...
-            if (!newPosition.equals(endPosition)) {
-                this.strategy.getVisitedPositionList().add(newPosition);
-                return find(newPosition, endPosition);
-            } else {
-                this.strategy.getVisitedPositionList().add(endPosition);
-                return endPosition;
+            try {
+                Position newPosition = calculateNextPosition(startPosition, instruction); // TODO fix this...
+                if (!newPosition.equals(endPosition)) {
+                    this.strategy.getVisitedPositionList().add(newPosition);
+                    return find(newPosition, endPosition);
+                } else {
+                    this.strategy.getVisitedPositionList().add(endPosition);
+                    return endPosition;
+                }
+            } catch (WallFoundException e) {
+                //TODO logging
             }
         }
         return startPosition;
@@ -53,8 +57,7 @@ public class Player {
         }
     }
 
-
-    private Position executePositionMovement(Position startPosition, Character instruction) {
+    private Position calculateNextPosition(Position startPosition, Character instruction) {
         Position newPosition = startPosition;
         if (instruction == 'E') {
             newPosition = startPosition.moveEast();
@@ -69,7 +72,7 @@ public class Player {
             newPosition = startPosition.moveSouth();
         }
         if (this.grid.isPositionAgainstWall(newPosition)) {
-            throw new RuntimeException("Wall Found!");
+            throw new WallFoundException();
         }
         return newPosition;
     }

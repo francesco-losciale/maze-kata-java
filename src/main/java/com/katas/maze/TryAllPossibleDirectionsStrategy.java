@@ -3,7 +3,7 @@ package com.katas.maze;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TryAllPossibleDirectionsStrategy {
+public class TryAllPossibleDirectionsStrategy implements SearchStrategy {
 
     private List<Position> visitedPositionList;
 
