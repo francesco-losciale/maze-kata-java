@@ -1,12 +1,17 @@
 package com.katas.maze;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Player {
 
     private Grid grid;
     private Position position;
+    private TryAllPossibleDirectionsStrategy strategy;
+
+    public Player(Grid grid, Position position, TryAllPossibleDirectionsStrategy strategy) {
+        this.grid = grid;
+        this.position = position;
+        this.strategy = strategy;
+        this.grid.markInitialCell(position);
+    }
 
     public Player(Grid grid, Position position) {
         this.grid = grid;
@@ -24,51 +29,30 @@ public class Player {
         return this.position;
     }
 
-    public Position find(Position startPosition, Position endPosition, List<Position> visitedPositionList) {
+    public Position find(Position startPosition, Position endPosition) {
         if (startPosition.equals(endPosition)) {
             return endPosition; // TODO or exception?
         }
-        for (String instruction : getPossibleOtherCells(startPosition, visitedPositionList)) {
-            Position newPosition = executePositionMovement(startPosition, instruction.charAt(0)); // TODO fix this...
+        checkAllRequisitesDefined();
+        for (Character instruction : this.strategy.getPossibleDirection(startPosition)) {
+            Position newPosition = executePositionMovement(startPosition, instruction); // TODO fix this...
             if (!newPosition.equals(endPosition)) {
-                visitedPositionList.add(newPosition);
-                return find(newPosition, endPosition, visitedPositionList);
+                this.strategy.getVisitedPositionList().add(newPosition);
+                return find(newPosition, endPosition);
             } else {
-                visitedPositionList.add(endPosition);
+                this.strategy.getVisitedPositionList().add(endPosition);
                 return endPosition;
             }
         }
         return startPosition;
     }
 
-    public List<String> getPossibleOtherCells(Position startPosition, List<Position> visitedPositionList) {
-        List<String> result = new ArrayList<String>();
-        try {
-            if (!visitedPositionList.contains(startPosition.moveEast())) {
-                result.add("E");
-            }
-        } catch (RuntimeException e) {
+    private void checkAllRequisitesDefined() {
+        if (this.strategy == null) {
+            new UnsupportedOperationException("Implementation error: no strategy defined for finding next cells");
         }
-        try {
-            if (!visitedPositionList.contains(startPosition.moveWest())) {
-                result.add("W");
-            }
-        } catch (RuntimeException e) {
-        }
-        try {
-            if (!visitedPositionList.contains(startPosition.moveNorth())) {
-                result.add("N");
-            }
-        } catch (RuntimeException e) {
-        }
-        try {
-            if (!visitedPositionList.contains(startPosition.moveSouth())) {
-                result.add("S");
-            }
-        } catch (RuntimeException e) {
-        }
-        return result;
     }
+
 
     private Position executePositionMovement(Position startPosition, Character instruction) {
         Position newPosition = startPosition;
