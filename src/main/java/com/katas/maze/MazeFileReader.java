@@ -19,7 +19,7 @@ public class MazeFileReader {
             this.endPosition = br.readLine();
             int plateauX = Integer.parseInt(this.plateauCoordinates.split(" ")[0]);
             int plateauY = Integer.parseInt(this.plateauCoordinates.split(" ")[1]);
-            this.grid = new Character[plateauX][plateauY];
+            this.grid = new Character[plateauY][plateauX];
             for (int y = 0; y < plateauY; y++) {
                 String[] line = br.readLine().split(" ");
                 for (int x = 0; x < plateauX; x++) {

@@ -10,6 +10,14 @@ public class Grid {
 
     public Grid(MazeFileReader mazeFileReader) {
         this.gridOutput = mazeFileReader.getGrid();
+        for (int i = 0; i < gridOutput.length; i++) {
+            for (int j = 0; j < gridOutput[i].length; j++) {
+                if (gridOutput[i][j] == '1') {
+                    wallPositionList.add(Position.createPosition(this, j + " " + i));
+                    gridOutput[i][j] = '#';
+                }
+            }
+        }
         this.markInitialCell(Position.createPosition(this, mazeFileReader.getInitialPosition()));
         this.markEndCell(Position.createPosition(this, mazeFileReader.getEndPosition()));
     }
@@ -25,7 +33,6 @@ public class Grid {
     public void markEndCell(Position position) {
         setCellValue(position.getX(), position.getY(), 'E');
     }
-
 
     public void markCellUsed(Position position) {
         setCellValue(position.getX(), position.getY(), 'X');

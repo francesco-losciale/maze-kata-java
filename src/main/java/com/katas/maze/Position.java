@@ -8,8 +8,8 @@ public class Position {
     private int currentX;
 
     protected Position(String currentPosition, int plateauX, int plateauY) {
-        this.currentX = Integer.parseInt(currentPosition.substring(0, 1));
-        this.currentY = Integer.parseInt(currentPosition.substring(2, 3));
+        this.currentX = Integer.parseInt(currentPosition.split(" ")[0]);
+        this.currentY = Integer.parseInt(currentPosition.split(" ")[1]);
         this.plateauX = plateauX;
         this.plateauY = plateauY;
     }

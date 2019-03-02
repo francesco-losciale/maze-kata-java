@@ -8,7 +8,20 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(JUnitParamsRunner.class)
-public class GridMovementTest {
+public class GridTest {
+
+    @Test
+    public void testGridInitialization() throws Exception {
+        String resourceName = "input.txt";
+        MazeFileReader mazeFileReader = new MazeFileReader(resourceName);
+        String expectedGridOutput = "# # # # #\n" +
+                                    "# S # 0 #\n" +
+                                    "# 0 # 0 #\n" +
+                                    "# 0 0 E #\n" +
+                                    "# # # # #";
+        Grid grid = new Grid(mazeFileReader);
+        assertEquals(expectedGridOutput.trim(), grid.toString().trim());
+    }
 
     @Test
     public void testGridPlateauLimits() throws Exception {

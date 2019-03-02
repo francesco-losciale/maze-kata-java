@@ -29,6 +29,7 @@ public class Player {
         return this.position;
     }
 
+    
     public Position find(Position startPosition, Position endPosition) {
         if (startPosition.equals(endPosition)) {
             return endPosition; // TODO or exception?
@@ -39,8 +40,15 @@ public class Player {
                 Position newPosition = calculateNextPosition(startPosition, instruction); // TODO fix this...
                 if (!newPosition.equals(endPosition)) {
                     this.strategy.getVisitedPositionList().add(newPosition);
+                    this.grid.markCellUsed(newPosition);// TODO added for testing acceptance
                     return find(newPosition, endPosition);
                 } else {
+                    for (Position position : this.strategy.getVisitedPositionList()) {
+                        if (this.position != position) {
+                            //TODO improve, done to avoid to overwrite S
+                            this.grid.markCellUsed(position);
+                        }
+                    }
                     this.strategy.getVisitedPositionList().add(endPosition);
                     return endPosition;
                 }
