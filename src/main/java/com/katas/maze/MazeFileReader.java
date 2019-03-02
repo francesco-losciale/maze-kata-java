@@ -15,6 +15,8 @@ public class MazeFileReader {
         File file = new File(getClass().getClassLoader().getResource(resourceName).getFile());
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             this.plateauCoordinates = br.readLine();
+            this.initialPosition = br.readLine();
+            this.endPosition = br.readLine();
             int plateauX = Integer.parseInt(this.plateauCoordinates.split(" ")[0]);
             int plateauY = Integer.parseInt(this.plateauCoordinates.split(" ")[1]);
             this.grid = new Character[plateauX][plateauY];
@@ -24,8 +26,6 @@ public class MazeFileReader {
                     this.grid[y][x] = line[x].charAt(0);
                 }
             }
-            this.initialPosition = br.readLine();
-            this.endPosition = br.readLine();
         }
     }
 
