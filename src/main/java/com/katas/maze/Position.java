@@ -77,4 +77,6 @@ public class Position {
         result = 31 * result + currentX;
         return result;
     }
+
+
 }
