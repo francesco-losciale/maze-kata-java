@@ -8,8 +8,13 @@ public class Grid {
     private List<Position> wallPositionList = new ArrayList<Position>();
     private Character[][] gridOutput; // 0,0 is upper-left cell, x goes right while y goes bottom
 
+//    public Grid(MazeFileReader mazeFileReader) {
+//        this.gridOutput = mazeFileReader.getGrid();
+//        this.markInitialCell(mazeFileReader.get);
+//    }
+
     public Grid(String plateauEdge) {
-        initializeGrid(plateauEdge);
+        initializeEmptyGrid(plateauEdge);
     }
 
     public void markInitialCell(Position position) {
@@ -37,7 +42,7 @@ public class Grid {
         return sb.toString();
     }
 
-    private void initializeGrid(String plateauEdge) {
+    private void initializeEmptyGrid(String plateauEdge) {
         int limitX = Integer.parseInt(plateauEdge.split(" ")[0]);
         int limitY = Integer.parseInt(plateauEdge.split(" ")[1]);
         this.gridOutput = new Character[limitX][limitY];
