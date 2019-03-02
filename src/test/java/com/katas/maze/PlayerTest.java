@@ -29,28 +29,28 @@ public class PlayerTest {
     // TODO this way you don't need to pass grid both ways
 
 
-    @Test
-    @Parameters({"0 0, 0 0, 3 3",
-                 "0 0, 0 1, 3 3",
-                 "0 0, 0 2, 3 3",
-                 "0 0, 1 0, 3 3",
-                 "0 0, 2 0, 3 3",
-                 "0 0, 1 1, 3 3"})
-    public void testPlayerFindsEndPositionWithoutAnyWall(
-            String initialPosition,
-            String endPosition,
-            String gridPlateauCoordinates
-    ) throws Exception {
-        Grid grid = new Grid(gridPlateauCoordinates);
-        Position playerPosition = Position.createPosition(grid, initialPosition);
-        List<Position> visitedPositionList = new ArrayList<Position>();
-        visitedPositionList.add(playerPosition);
-        TryAllPossibleDirectionsStrategy strategy = new TryAllPossibleDirectionsStrategy(playerPosition);
-        Whitebox.setInternalState(strategy, "visitedPositionList", visitedPositionList);
-        Player player = new Player(grid, playerPosition, strategy);
-        assertEquals(Position.createPosition(grid, endPosition),
-                player.find(playerPosition, Position.createPosition(grid, endPosition)));
-    }
+//    @Test
+//    @Parameters({"0 0, 0 0, 3 3",
+//                 "0 0, 0 1, 3 3",
+//                 "0 0, 0 2, 3 3",
+//                 "0 0, 1 0, 3 3",
+//                 "0 0, 2 0, 3 3",
+//                 "0 0, 1 1, 3 3"})
+//    public void testPlayerFindsEndPositionWithoutAnyWall(
+//            String initialPosition,
+//            String endPosition,
+//            String gridPlateauCoordinates
+//    ) throws Exception {
+//        Grid grid = new Grid(gridPlateauCoordinates);
+//        Position playerPosition = Position.createPosition(grid, initialPosition);
+//        List<Position> visitedPositionList = new ArrayList<Position>();
+//        visitedPositionList.add(playerPosition);
+//        TryAllPossibleDirectionsStrategy strategy = new TryAllPossibleDirectionsStrategy(playerPosition);
+//        Whitebox.setInternalState(strategy, "visitedPositionList", visitedPositionList);
+//        Player player = new Player(grid, playerPosition, strategy);
+//        assertEquals(Position.createPosition(grid, endPosition),
+//                player.find(playerPosition, Position.createPosition(grid, endPosition)));
+//    }
 
     @Test
     public void testPlayerFindsEndPositionAndPathIsWhatExpectedWithoutAnyWall() {
@@ -76,27 +76,27 @@ public class PlayerTest {
 
     }
 
-    @Test
-    @Parameters({"0 0, 2 2, 3 3"})
-    public void testPlayerFindsEndPositionWithSomeWall(
-            String initialPosition,
-            String endPosition,
-            String gridPlateauCoordinates
-    ) throws Exception {
-        Grid grid = new Grid(gridPlateauCoordinates);
-        grid.addWallAtCoordinates("1 0");
-        grid.addWallAtCoordinates("2 0");
-        grid.addWallAtCoordinates("0 2");
-        grid.addWallAtCoordinates("1 2");
-        Position playerPosition = Position.createPosition(grid, initialPosition);
-        List<Position> visitedPositionList = new ArrayList<Position>();
-        visitedPositionList.add(playerPosition);
-        TryAllPossibleDirectionsStrategy strategy = new TryAllPossibleDirectionsStrategy(playerPosition);
-        Whitebox.setInternalState(strategy, "visitedPositionList", visitedPositionList);
-        Player player = new Player(grid, playerPosition, strategy);
-        assertEquals(Position.createPosition(grid, endPosition),
-                player.find(playerPosition, Position.createPosition(grid, endPosition)));
-    }
+//    @Test
+//    @Parameters({"0 0, 2 2, 3 3"})
+//    public void testPlayerFindsEndPositionWithSomeWall(
+//            String initialPosition,
+//            String endPosition,
+//            String gridPlateauCoordinates
+//    ) throws Exception {
+//        Grid grid = new Grid(gridPlateauCoordinates);
+//        grid.addWallAtCoordinates("1 0");
+//        grid.addWallAtCoordinates("2 0");
+//        grid.addWallAtCoordinates("0 2");
+//        grid.addWallAtCoordinates("1 2");
+//        Position playerPosition = Position.createPosition(grid, initialPosition);
+//        List<Position> visitedPositionList = new ArrayList<Position>();
+//        visitedPositionList.add(playerPosition);
+//        TryAllPossibleDirectionsStrategy strategy = new TryAllPossibleDirectionsStrategy(playerPosition);
+//        Whitebox.setInternalState(strategy, "visitedPositionList", visitedPositionList);
+//        Player player = new Player(grid, playerPosition, strategy);
+//        assertEquals(Position.createPosition(grid, endPosition),
+//                player.find(playerPosition, Position.createPosition(grid, endPosition)));
+//    }
 
     @Test
     public void testPlayerFindsEndPositionAndPathIsWhatExpectedWithSomeWall() {

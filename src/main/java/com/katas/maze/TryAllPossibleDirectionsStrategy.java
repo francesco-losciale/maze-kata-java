@@ -9,7 +9,7 @@ public class TryAllPossibleDirectionsStrategy implements SearchStrategy {
 
     public TryAllPossibleDirectionsStrategy(Position startPosition) {
         this.visitedPositionList = new ArrayList<Position>();
-        this.visitedPositionList.add(startPosition);
+//        this.visitedPositionList.add(startPosition);
     }
 
     public List<Position> getVisitedPositionList() {
@@ -18,10 +18,10 @@ public class TryAllPossibleDirectionsStrategy implements SearchStrategy {
 
     public List<Character> getPossibleDirection(Position startPosition) {
         List<Character> possibleDirectionList = new ArrayList<Character>();
-        tryMovingEast(startPosition, visitedPositionList, possibleDirectionList);
-        tryMovingWest(startPosition, visitedPositionList, possibleDirectionList);
-        tryMovingNorth(startPosition, visitedPositionList, possibleDirectionList);
         tryMovingSouth(startPosition, visitedPositionList, possibleDirectionList);
+        tryMovingWest(startPosition, visitedPositionList, possibleDirectionList);
+        tryMovingEast(startPosition, visitedPositionList, possibleDirectionList);
+        tryMovingNorth(startPosition, visitedPositionList, possibleDirectionList);
         return possibleDirectionList;
     }
 

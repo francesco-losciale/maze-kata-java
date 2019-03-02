@@ -29,34 +29,24 @@ public class Player {
         return this.position;
     }
 
-    
-    public Position find(Position startPosition, Position endPosition) {
-        if (startPosition.equals(endPosition)) {
-            return endPosition; // TODO or exception?
+    public boolean find(Position startPosition, Position endPosition) {
+        if (this.strategy.getVisitedPositionList().contains(startPosition) ||
+                this.grid.isPositionAgainstWall(startPosition)) {
+            return false;
         }
-        checkAllRequisitesDefined();
-        for (Character instruction : this.strategy.getPossibleDirection(startPosition)) {
-            try {
-                Position newPosition = calculateNextPosition(startPosition, instruction); // TODO fix this...
-                if (!newPosition.equals(endPosition)) {
-                    this.strategy.getVisitedPositionList().add(newPosition);
-                    this.grid.markCellUsed(newPosition);// TODO added for testing acceptance
-                    return find(newPosition, endPosition);
-                } else {
-                    for (Position position : this.strategy.getVisitedPositionList()) {
-                        if (this.position != position) {
-                            //TODO improve, done to avoid to overwrite S
-                            this.grid.markCellUsed(position);
-                        }
-                    }
-                    this.strategy.getVisitedPositionList().add(endPosition);
-                    return endPosition;
-                }
-            } catch (WallFoundException e) {
-                //TODO logging
+        if (startPosition.equals(endPosition)) {
+            return true;
+        }
+        this.strategy.getVisitedPositionList().add(startPosition);
+        for (Character direction : this.strategy.getPossibleDirection(startPosition)) {
+            Position newPosition = calculateNextPosition(startPosition, direction); // TODO fix this...
+            boolean found = find(newPosition, endPosition);
+            if (found) {
+                return true;
             }
         }
-        return startPosition;
+        this.strategy.getVisitedPositionList().remove(startPosition);
+        return false;
     }
 
     private void checkAllRequisitesDefined() {
@@ -79,9 +69,9 @@ public class Player {
         if (instruction == 'S') {
             newPosition = startPosition.moveSouth();
         }
-        if (this.grid.isPositionAgainstWall(newPosition)) {
-            throw new WallFoundException();
-        }
+//        if (this.grid.isPositionAgainstWall(newPosition)) {
+//            throw new WallFoundException();
+//        }
         return newPosition;
     }
 
