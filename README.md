@@ -16,6 +16,17 @@ java -jar maze-technical-test.jar ~/IdeaProjects/maze-kata-java/src/test/resourc
 
 It will print on the console the maze, if you want to view the output in a file simply add " > output.txt" to the command above.
 
+For building:
+```
+mvn clean install
+```
+
+For running the testsuite
+```
+mvn clean test
+```
+
+
 
 # Considerations
 
