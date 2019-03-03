@@ -19,7 +19,8 @@ public class FileReaderTest {
     @Test
     public void testReadPlateauCoordinates() throws Exception {
         String resourceName = "input.txt";
-        MazeFileReader mazeFileReader = new MazeFileReader(resourceName);
+        File file = new File(getClass().getClassLoader().getResource(resourceName).getFile());
+        MazeFileReader mazeFileReader = new MazeFileReader(file);
         assertEquals("5 5", mazeFileReader.getPlateauCoordinates());
         assertEquals("1 1", mazeFileReader.getInitialPosition());
         assertEquals("3 3", mazeFileReader.getEndPosition());

@@ -5,6 +5,8 @@ import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.File;
+
 import static org.junit.Assert.assertEquals;
 
 @RunWith(JUnitParamsRunner.class)
@@ -13,7 +15,8 @@ public class GridTest {
     @Test
     public void testGridInitialization() throws Exception {
         String resourceName = "input.txt";
-        MazeFileReader mazeFileReader = new MazeFileReader(resourceName);
+        File file = new File(getClass().getClassLoader().getResource(resourceName).getFile());
+        MazeFileReader mazeFileReader = new MazeFileReader(file);
         String expectedGridOutput = "# # # # #\n" +
                                     "# S # 0 #\n" +
                                     "# 0 # 0 #\n" +

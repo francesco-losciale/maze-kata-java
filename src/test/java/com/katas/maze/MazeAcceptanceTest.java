@@ -5,6 +5,8 @@ import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.File;
+
 import static org.junit.Assert.assertEquals;
 
 @RunWith(JUnitParamsRunner.class)
@@ -20,7 +22,8 @@ public class MazeAcceptanceTest {
             "sparse_medium.txt, " + AcceptanceOutputExpectation.sparseMedium,
     })
     public void testFileInputTest(String resourceName, String expectedGridOutput) throws Exception {
-        MazeFileReader mazeFileReader = new MazeFileReader(resourceName);
+        File file = new File(getClass().getClassLoader().getResource(resourceName).getFile());
+        MazeFileReader mazeFileReader = new MazeFileReader(file);
         Grid grid = new Grid(mazeFileReader);
         Position playerPosition = Position.createPosition(grid, mazeFileReader.getInitialPosition());
         Position endPosition = Position.createPosition(grid, mazeFileReader.getEndPosition());

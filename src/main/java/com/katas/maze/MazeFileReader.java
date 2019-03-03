@@ -11,8 +11,7 @@ public class MazeFileReader {
     private final String endPosition;
     private final Character[][] grid;
 
-    public MazeFileReader(String resourceName) throws Exception {
-        File file = new File(getClass().getClassLoader().getResource(resourceName).getFile());
+    public MazeFileReader(File file) throws Exception {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             this.plateauCoordinates = br.readLine();
             this.initialPosition = br.readLine();
@@ -28,6 +27,10 @@ public class MazeFileReader {
             }
         }
     }
+
+//    public MazeFileReader(String resourceName) throws Exception {
+//        File file = new File(getClass().getClassLoader().getResource(resourceName).getFile());
+//    }
 
     public String getPlateauCoordinates() {
         return plateauCoordinates;
