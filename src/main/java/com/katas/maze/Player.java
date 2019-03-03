@@ -20,7 +20,7 @@ public class Player {
     }
 
     public void movePlayer(Character direction) {
-        Position newPosition = calculateNextPosition(this.position, direction);
+        Position newPosition = Position.calculateNextPosition(this.position, direction);
         if (!this.grid.isDirectionAgainsWall(newPosition)) {
             this.position = newPosition;
             this.grid.markCellUsed(newPosition);
@@ -41,7 +41,7 @@ public class Player {
         }
         this.strategy.getVisitedPositionList().add(startPosition);
         for (Character direction : this.strategy.getPossibleDirection(startPosition)) {
-            Position newPosition = calculateNextPosition(startPosition, direction); // TODO fix this...
+            Position newPosition = Position.calculateNextPosition(startPosition, direction); // TODO fix this...
             boolean found = find(newPosition, endPosition);
             if (found) {
                 return true;
@@ -49,23 +49,6 @@ public class Player {
         }
         this.strategy.getVisitedPositionList().remove(startPosition);
         return false;
-    }
-
-    private Position calculateNextPosition(Position startPosition, Character instruction) {
-        Position newPosition = startPosition;
-        if (instruction == 'E') {
-            newPosition = startPosition.moveEast();
-        }
-        if (instruction == 'W') {
-            newPosition = startPosition.moveWest();
-        }
-        if (instruction == 'N') {
-            newPosition = startPosition.moveNorth();
-        }
-        if (instruction == 'S') {
-            newPosition = startPosition.moveSouth();
-        }
-        return newPosition;
     }
 
 }

@@ -20,6 +20,24 @@ public class Position {
 
     }
 
+
+    static public Position calculateNextPosition(Position startPosition, Character instruction) {
+        Position newPosition = startPosition;
+        if (instruction == 'E') {
+            newPosition = startPosition.moveEast();
+        }
+        if (instruction == 'W') {
+            newPosition = startPosition.moveWest();
+        }
+        if (instruction == 'N') {
+            newPosition = startPosition.moveNorth();
+        }
+        if (instruction == 'S') {
+            newPosition = startPosition.moveSouth();
+        }
+        return newPosition;
+    }
+
     public Position moveEast() {
         int currentX = this.currentX + 1;
         if (currentX  >= this.plateauX) {
