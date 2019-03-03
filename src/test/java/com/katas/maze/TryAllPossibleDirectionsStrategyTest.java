@@ -15,14 +15,11 @@ import static org.junit.Assert.assertFalse;
 @RunWith(JUnitParamsRunner.class)
 public class TryAllPossibleDirectionsStrategyTest {
 
-
-    // TODO parametrize this two methods below
-
     @Test
     @Parameters({
             "2 2, E N S W"
     })
-    public void testPlayerWhereCanMove(String currentPosition, String expectedPossibleMovements) throws Exception {
+    public void testPlayerWhereCanMove(String currentPosition, String expectedPossibleMovements) {
         Grid grid = new Grid("3 3");
         Position playerPosition = Position.createPosition(grid, currentPosition);
         TryAllPossibleDirectionsStrategy strategy = new TryAllPossibleDirectionsStrategy(playerPosition);
