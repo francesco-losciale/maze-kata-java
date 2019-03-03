@@ -1,0 +1,8 @@
+Samples\small_input.txt
+# # # # #
+# S X X #
+# 0 # X #
+# 0 # X #
+# 0 # E #
+# # # # #
+
