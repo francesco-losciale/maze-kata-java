@@ -15,7 +15,9 @@ public class Position {
     }
 
     static public Position createPosition(Grid grid, String currentPosition) {
-        return new Position(currentPosition, grid.getLimitX(), grid.getLimitY());
+//        return new Position(currentPosition, grid.getLimitX(), grid.getLimitY());
+        return new Position(currentPosition, grid.getLimitY(), grid.getLimitX());
+
     }
 
     public Position moveEast() {
