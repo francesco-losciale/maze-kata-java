@@ -1,5 +1,6 @@
 package com.katas.maze;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
@@ -33,6 +34,11 @@ public class Player {
         return this.position;
     }
 
+    public boolean find(Position startPosition, Position endPosition) {
+        return find(startPosition, endPosition, new ArrayList<>());
+    }
+
+
     public boolean find(Position startPosition, Position endPosition, List<Position> visitedPositionList) {
         if (visitedPositionList.contains(startPosition) ||
                 this.grid.isDirectionAgainsWall(startPosition)) {
@@ -46,11 +52,19 @@ public class Player {
             Position newPosition = Position.calculateNextPosition(startPosition, direction);
             boolean found = find(newPosition, endPosition, visitedPositionList);
             if (found) {
+                drawPathIntoGrid(visitedPositionList);
                 return true;
             }
         }
         visitedPositionList.remove(startPosition);
         return false;
+    }
+
+    private void drawPathIntoGrid(List<Position> visitedPositionList) {
+        for (Position position : visitedPositionList) {
+            if (!position.equals(this.position))
+                grid.markCellUsed(position);
+        }
     }
 
 }

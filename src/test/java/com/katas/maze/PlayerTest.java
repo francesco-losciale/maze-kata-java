@@ -25,10 +25,6 @@ public class PlayerTest {
         assertEquals(player.getPosition().toString(), "2 2");
     }
 
-    // TODO you can move Position.createPosition a level up
-    // TODO this way you don't need to pass grid both ways
-
-
     @Test
     @Parameters({"0 0, 0 0, 3 3",
                  "0 0, 0 1, 3 3",

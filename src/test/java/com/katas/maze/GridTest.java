@@ -76,7 +76,7 @@ public class GridTest {
     }
 
     @Test
-    public void testMovementAgainstWallDoesNotChangeGrid() throws Exception {
+    public void testMovementAgainstWallDoesNotChangeGrid() {
         final String initialGrid = "S 0\n0 0\n";
         final String currentPosition = "0 0";
         final String plateauCoordinates = "2 2";
@@ -85,10 +85,7 @@ public class GridTest {
         grid.addWallAtCoordinates("1 0");
         Position playerPosition = Position.createPosition(grid, currentPosition);
         Player player = new Player(grid, playerPosition);
-        try {
-            player.movePlayer(instruction);
-        } catch (Exception e) {
-            assertEquals(initialGrid.trim(), grid.toString().trim());
-        }
+        player.movePlayer(instruction);
+        assertEquals(initialGrid.trim(), grid.toString().trim());
     }
 }

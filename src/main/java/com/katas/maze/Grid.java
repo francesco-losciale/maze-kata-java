@@ -55,21 +55,6 @@ public class Grid {
         return sb.toString();
     }
 
-    private void initializeEmptyGrid(String plateauEdge) {
-        int limitX = Integer.parseInt(plateauEdge.split(" ")[0]);
-        int limitY = Integer.parseInt(plateauEdge.split(" ")[1]);
-        this.gridOutput = new Character[limitX][limitY];
-        for (int i = 0; i < limitX; i++) {
-            for (int j = 0; j < limitY; j++) {
-                this.gridOutput[i][j] = '0';
-            }
-        }
-    }
-
-    private void setCellValue(int x, int y, Character value) {
-        this.gridOutput[y][x] = value;
-    }
-
     public boolean isDirectionAgainsWall(Position position) {
         return this.wallPositionList.contains(position);
     }
@@ -87,5 +72,20 @@ public class Grid {
                 Position.createPosition(this, wallPosition)
         );
         return this;
+    }
+
+    private void initializeEmptyGrid(String plateauEdge) {
+        int limitX = Integer.parseInt(plateauEdge.split(" ")[0]);
+        int limitY = Integer.parseInt(plateauEdge.split(" ")[1]);
+        this.gridOutput = new Character[limitX][limitY];
+        for (int i = 0; i < limitX; i++) {
+            for (int j = 0; j < limitY; j++) {
+                this.gridOutput[i][j] = '0';
+            }
+        }
+    }
+
+    private void setCellValue(int x, int y, Character value) {
+        this.gridOutput[y][x] = value;
     }
 }
