@@ -1,5 +1,7 @@
 package com.katas.maze;
 
+import java.util.List;
+
 public class Player {
 
     private Grid grid;
@@ -31,23 +33,23 @@ public class Player {
         return this.position;
     }
 
-    public boolean find(Position startPosition, Position endPosition) {
-        if (this.strategy.getVisitedPositionList().contains(startPosition) ||
+    public boolean find(Position startPosition, Position endPosition, List<Position> visitedPositionList) {
+        if (visitedPositionList.contains(startPosition) ||
                 this.grid.isDirectionAgainsWall(startPosition)) {
             return false;
         }
         if (startPosition.equals(endPosition)) {
             return true;
         }
-        this.strategy.getVisitedPositionList().add(startPosition);
+        visitedPositionList.add(startPosition);
         for (Character direction : this.strategy.getPossibleDirection(startPosition)) {
-            Position newPosition = Position.calculateNextPosition(startPosition, direction); // TODO fix this...
-            boolean found = find(newPosition, endPosition);
+            Position newPosition = Position.calculateNextPosition(startPosition, direction);
+            boolean found = find(newPosition, endPosition, visitedPositionList);
             if (found) {
                 return true;
             }
         }
-        this.strategy.getVisitedPositionList().remove(startPosition);
+        visitedPositionList.remove(startPosition);
         return false;
     }
 

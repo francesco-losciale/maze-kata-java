@@ -45,7 +45,8 @@ public class PlayerTest {
         Position playerPosition = Position.createPosition(grid, initialPosition);
         TryAllPossibleDirectionsStrategy strategy = new TryAllPossibleDirectionsStrategy(playerPosition);
         Player player = new Player(grid, playerPosition, strategy);
-        assertTrue(player.find(playerPosition, Position.createPosition(grid, endPosition)));
+        List<Position> visitedPositionList = new ArrayList<>();
+        assertTrue(player.find(playerPosition, Position.createPosition(grid, endPosition), visitedPositionList));
     }
 
     @Test
@@ -57,14 +58,15 @@ public class PlayerTest {
         Position playerPosition = Position.createPosition(grid, initialPosition);
         TryAllPossibleDirectionsStrategy strategy = new TryAllPossibleDirectionsStrategy(playerPosition);
         Player player = new Player(grid, playerPosition, strategy);
-        player.find(playerPosition, Position.createPosition(grid, endPosition));
+        List<Position> visitedPositionList = new ArrayList<>();
+        player.find(playerPosition, Position.createPosition(grid, endPosition), visitedPositionList);
         assertArrayEquals(
                 Arrays.asList(
                         Position.createPosition(grid, "0 0"),
                         Position.createPosition(grid, "0 1"),
                         Position.createPosition(grid, "0 2")//,
                 ).toArray(new Position[3]),
-                strategy.getVisitedPositionList().toArray(new Position[strategy.getVisitedPositionList().size()]));
+                visitedPositionList.toArray(new Position[strategy.getVisitedPositionList().size()]));
 
     }
 
@@ -83,7 +85,8 @@ public class PlayerTest {
         Position playerPosition = Position.createPosition(grid, initialPosition);
         TryAllPossibleDirectionsStrategy strategy = new TryAllPossibleDirectionsStrategy(playerPosition);
         Player player = new Player(grid, playerPosition, strategy);
-        assertTrue(player.find(playerPosition, Position.createPosition(grid, endPosition)));
+        List<Position> visitedPositionList = new ArrayList<>();
+        assertTrue(player.find(playerPosition, Position.createPosition(grid, endPosition), visitedPositionList));
     }
 
     @Test
@@ -99,14 +102,15 @@ public class PlayerTest {
         Position playerPosition = Position.createPosition(grid, initialPosition);
         TryAllPossibleDirectionsStrategy strategy = new TryAllPossibleDirectionsStrategy(playerPosition);
         Player player = new Player(grid, playerPosition, strategy);
-        player.find(playerPosition, Position.createPosition(grid, endPosition));
+        List<Position> visitedPositionList = new ArrayList<>();
+        player.find(playerPosition, Position.createPosition(grid, endPosition), visitedPositionList);
         assertArrayEquals(
                 Arrays.asList(
                         Position.createPosition(grid, "0 0"),
                         Position.createPosition(grid, "0 1"),
                         Position.createPosition(grid, "2 1")
                 ).toArray(new Position[3]),
-                strategy.getVisitedPositionList().toArray(new Position[strategy.getVisitedPositionList().size()]));
+                visitedPositionList.toArray(new Position[strategy.getVisitedPositionList().size()]));
 
     }
 

@@ -5,6 +5,9 @@ import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 @RunWith(JUnitParamsRunner.class)
@@ -26,8 +29,9 @@ public class MazeAcceptanceTest {
         Position endPosition = Position.createPosition(grid, mazeFileReader.getEndPosition());
         TryAllPossibleDirectionsStrategy searchStrategy = new TryAllPossibleDirectionsStrategy(playerPosition);
         Player player = new Player(grid, playerPosition, searchStrategy);
-        player.find(playerPosition, endPosition);
-        for (Position position : searchStrategy.getVisitedPositionList()) {
+        List<Position> visitedPositionList = new ArrayList<>();
+        player.find(playerPosition, endPosition, visitedPositionList);
+        for (Position position : visitedPositionList) {
             if (!position.equals(playerPosition))
                 grid.markCellUsed(position);
         }
