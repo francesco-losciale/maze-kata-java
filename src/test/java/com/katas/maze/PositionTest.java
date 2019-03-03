@@ -31,7 +31,7 @@ public class PositionTest {
     }
 
     @Test
-    public void testPositionIsImmutable() throws Exception {
+    public void testPositionIsImmutable() {
         final String plateauCoordinates = "2 2";
         final Grid grid = new Grid(plateauCoordinates);
         final Position position = Position.createPosition(grid, "0 0");

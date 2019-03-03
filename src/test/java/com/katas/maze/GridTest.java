@@ -24,13 +24,13 @@ public class GridTest {
     }
 
     @Test
-    public void testGridPlateauLimits() throws Exception {
+    public void testGridPlateauLimits() {
         assertEquals(new Grid("5 1").getLimitX(), 5);
         assertEquals(new Grid("1 5").getLimitY(), 5);
     }
 
     @Test
-    public void testGridPlateauLargeLimits() throws Exception {
+    public void testGridPlateauLargeLimits() {
         assertEquals(new Grid("10 15").getLimitX(), 10);
         assertEquals(new Grid("10 15").getLimitY(), 15);
     }

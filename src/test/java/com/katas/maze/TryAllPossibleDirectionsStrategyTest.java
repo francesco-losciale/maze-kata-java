@@ -33,14 +33,17 @@ public class TryAllPossibleDirectionsStrategyTest {
     }
 
     @Test
-    public void testPlayerWhereCanMoveAvoidingVisitedPositions() throws Exception {
+    public void testPlayerWhereCanMoveAvoidingVisitedPositions() {
         Grid grid = new Grid("3 3");
         Position playerPosition = Position.createPosition(grid, "2 0");
+        TryAllPossibleDirectionsStrategy strategy = new TryAllPossibleDirectionsStrategy(playerPosition);
+
+        //mocking visited positions
         List<Position> visitedPositionList = new ArrayList<>();
         visitedPositionList.add(playerPosition);
         visitedPositionList.add(Position.createPosition(grid, "0 0"));
-        TryAllPossibleDirectionsStrategy strategy = new TryAllPossibleDirectionsStrategy(playerPosition);
         Whitebox.setInternalState(strategy, "visitedPositionList", visitedPositionList);
+
         List<Character> possibleDirectionList = strategy.getPossibleDirection(playerPosition);
         String expectedPossibleMovements = "N W S";
         for (Character character : possibleDirectionList) {
