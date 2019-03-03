@@ -19,10 +19,12 @@ public class Player {
         this.grid.markInitialCell(position);
     }
 
-    public void executeInstruction(Character instruction) {
-        Position newPosition = calculateNextPosition(this.position, instruction);
-        this.position = newPosition;
-        this.grid.markCellUsed(newPosition);
+    public void movePlayer(Character direction) {
+        Position newPosition = calculateNextPosition(this.position, direction);
+        if (!this.grid.isDirectionAgainsWall(newPosition)) {
+            this.position = newPosition;
+            this.grid.markCellUsed(newPosition);
+        }
     }
 
     public Position getPosition() {
@@ -31,7 +33,7 @@ public class Player {
 
     public boolean find(Position startPosition, Position endPosition) {
         if (this.strategy.getVisitedPositionList().contains(startPosition) ||
-                this.grid.isPositionAgainstWall(startPosition)) {
+                this.grid.isDirectionAgainsWall(startPosition)) {
             return false;
         }
         if (startPosition.equals(endPosition)) {
@@ -49,12 +51,6 @@ public class Player {
         return false;
     }
 
-    private void checkAllRequisitesDefined() {
-        if (this.strategy == null) {
-            new UnsupportedOperationException("Implementation error: no strategy defined for finding next cells");
-        }
-    }
-
     private Position calculateNextPosition(Position startPosition, Character instruction) {
         Position newPosition = startPosition;
         if (instruction == 'E') {
@@ -69,9 +65,6 @@ public class Player {
         if (instruction == 'S') {
             newPosition = startPosition.moveSouth();
         }
-//        if (this.grid.isPositionAgainstWall(newPosition)) {
-//            throw new WallFoundException();
-//        }
         return newPosition;
     }
 

@@ -70,7 +70,7 @@ public class Grid {
         this.gridOutput[y][x] = value;
     }
 
-    public boolean isPositionAgainstWall(Position position) {
+    public boolean isDirectionAgainsWall(Position position) {
         return this.wallPositionList.contains(position);
     }
 

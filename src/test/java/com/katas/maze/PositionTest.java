@@ -19,20 +19,15 @@ public class PositionTest {
     }
 
     @Test
-    public void testPositionDoesNotChangeWhenAgainstWall() throws Exception {
+    public void testPositionDoesNotChangeWhenAgainstWall() {
         final String currentPosition = "0 0";
         final String plateauCoordinates = "2 2";
         final Character instruction = 'E';
         Grid grid = new Grid(plateauCoordinates).addWallAtCoordinates("1 0");
         Position playerPosition = Position.createPosition(grid, currentPosition);
         Player player = new Player(grid, playerPosition);
-        try {
-            player.executeInstruction(instruction);
-        } catch (Exception e) {
-            assertEquals(currentPosition.toString(), playerPosition.toString());
-            return;
-        }
-        fail("Expected Exception \"Wall found\" executing instruction");
+        player.movePlayer(instruction);
+        assertEquals("Position hasn't changed", playerPosition, player.getPosition());
     }
 
     @Test

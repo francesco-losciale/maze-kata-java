@@ -50,7 +50,7 @@ public class GridTest {
         Grid grid = new Grid(plateauCoordinates);
         Position playerPosition = Position.createPosition(grid, currentPosition);
         Player player = new Player(grid, playerPosition);
-        player.executeInstruction(instruction);
+        player.movePlayer(instruction);
         assertEquals(endPosition, player.getPosition().toString());
         assertEquals(expectedGridOutput, grid.toString().trim());
     }
@@ -70,21 +70,9 @@ public class GridTest {
         Grid grid = new Grid(plateauCoordinates);
         Position playerPosition = Position.createPosition(grid, currentPosition);
         Player player = new Player(grid, playerPosition);
-        player.executeInstruction(instruction);
+        player.movePlayer(instruction);
         assertEquals(endPosition, player.getPosition().toString());
         assertEquals(expectedGridOutput, grid.toString().trim());
-    }
-
-    @Test(expected = RuntimeException.class)
-    public void testMovementExceptionWhenWallFound() {
-        final String currentPosition = "0 0";
-        final String plateauCoordinates = "2 2";
-        final Character instruction = 'E';
-        Grid grid = new Grid(plateauCoordinates);
-        grid.addWallAtCoordinates("1 0");
-        Position playerPosition = Position.createPosition(grid, currentPosition);
-        Player player = new Player(grid, playerPosition);
-        player.executeInstruction(instruction);
     }
 
     @Test
@@ -98,7 +86,7 @@ public class GridTest {
         Position playerPosition = Position.createPosition(grid, currentPosition);
         Player player = new Player(grid, playerPosition);
         try {
-            player.executeInstruction(instruction);
+            player.movePlayer(instruction);
         } catch (Exception e) {
             assertEquals(initialGrid.trim(), grid.toString().trim());
         }
