@@ -1,4 +1,4 @@
-# Instruction 
+# Instructions
 
 Executable JAR is available here: 
 
