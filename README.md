@@ -17,7 +17,6 @@ It will print on the console the maze, if you want to view the output in a file 
 
 # Considerations
 
-- OO approach
 - Used a bottom up TDD approach, developing the single components first and at last the Acceptance Criteria test. 
 - Second guessing an Outside-in approach would have been better, in one occation I spent time debugging for the special case of a rectangular grid (which I missed to consider in the GridTest class). This skipped test case would have been visible if I had started from the Acceptance Test. 
 
