@@ -10,7 +10,9 @@ https://github.com/francesco-losciale/maze-kata-java/tree/master/src/test/resour
 
 Once downloaded the jar file, simply run this command: 
 
+```
 java -jar maze-technical-test.jar /home/osboxes/IdeaProjects/maze-kata-java/src/test/resources/small_input.txt
+```
 
 It will print on the console the maze, if you want to view the output in a file simply add " > output.txt" to the command above.
 
