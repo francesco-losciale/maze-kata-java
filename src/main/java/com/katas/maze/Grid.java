@@ -5,25 +5,17 @@ import java.util.List;
 
 public class Grid {
 
-    private List<Position> wallPositionList = new ArrayList<Position>();
+    private List<Position> wallPositionList = new ArrayList<>(); // TODO could be removed
     private Character[][] gridOutput; // 0,0 is upper-left cell, x goes right while y goes bottom
 
     public Grid(MazeFileReader mazeFileReader) {
-        this.gridOutput = mazeFileReader.getGrid();
-        for (int i = 0; i < gridOutput.length; i++) {
-            for (int j = 0; j < gridOutput[i].length; j++) {
-                if (gridOutput[i][j] == '1') {
-                    wallPositionList.add(Position.createPosition(this, j + " " + i));
-                    gridOutput[i][j] = '#';
-                }
-            }
-        }
+        initializeGridFromFile(mazeFileReader);
         this.markInitialCell(Position.createPosition(this, mazeFileReader.getInitialPosition()));
         this.markEndCell(Position.createPosition(this, mazeFileReader.getEndPosition()));
     }
 
-    public Grid(String plateauEdge) {
-        initializeEmptyGrid(plateauEdge);
+    public Grid(String gridCoordinates) {
+        initializeEmptyGrid(gridCoordinates);
     }
 
     public void markInitialCell(Position position) {
@@ -45,23 +37,6 @@ public class Grid {
         }
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < gridOutput.length; i++) {
-            for (int j = 0; j < gridOutput[i].length; j++) {
-                if (gridOutput[i][j] != null) {
-                    sb.append(gridOutput[i][j]);
-                    if (j + 1 < gridOutput[i].length && gridOutput[i][j + 1] != null) {
-                        sb.append(" ");
-                    }
-                }
-            }
-            sb.append("\n");
-        }
-        return sb.toString();
-    }
-
     public boolean isDirectionAgainsWall(Position position) {
         return this.wallPositionList.contains(position);
     }
@@ -81,6 +56,23 @@ public class Grid {
         return this;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < gridOutput.length; i++) {
+            for (int j = 0; j < gridOutput[i].length; j++) {
+                if (gridOutput[i][j] != null) {
+                    sb.append(gridOutput[i][j]);
+                    if (j + 1 < gridOutput[i].length && gridOutput[i][j + 1] != null) {
+                        sb.append(" ");
+                    }
+                }
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
     private void initializeEmptyGrid(String plateauEdge) {
         int limitX = Integer.parseInt(plateauEdge.split(" ")[0]);
         int limitY = Integer.parseInt(plateauEdge.split(" ")[1]);
@@ -88,6 +80,18 @@ public class Grid {
         for (int i = 0; i < limitX; i++) {
             for (int j = 0; j < limitY; j++) {
                 this.gridOutput[i][j] = '0';
+            }
+        }
+    }
+
+    private void initializeGridFromFile(MazeFileReader mazeFileReader) {
+        this.gridOutput = mazeFileReader.getGrid();
+        for (int i = 0; i < gridOutput.length; i++) {
+            for (int j = 0; j < gridOutput[i].length; j++) {
+                if (gridOutput[i][j] == '1') {
+                    wallPositionList.add(Position.createPosition(this, j + " " + i));
+                    gridOutput[i][j] = '#';
+                }
             }
         }
     }
