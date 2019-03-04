@@ -2,13 +2,11 @@ package com.katas.maze;
 
 import java.util.*;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
-import org.mockito.internal.util.reflection.Whitebox;
 
 import static org.junit.Assert.*;
 
@@ -20,7 +18,7 @@ public class PlayerTest {
     public void testPlayerInstantiation() {
         Grid grid = new Grid("3 3");
         Position playerPosition = Position.createPosition(grid, "2 2");
-        TryAllPossibleDirectionsStrategy strategy = new TryAllPossibleDirectionsStrategy(playerPosition);
+        SimpleSearchStrategy strategy = new SimpleSearchStrategy();
         Player player = new Player(grid, playerPosition, strategy);
         assertEquals(player.getPosition().toString(), "2 2");
     }
@@ -39,7 +37,7 @@ public class PlayerTest {
     ) throws Exception {
         Grid grid = new Grid(gridPlateauCoordinates);
         Position playerPosition = Position.createPosition(grid, initialPosition);
-        TryAllPossibleDirectionsStrategy strategy = new TryAllPossibleDirectionsStrategy(playerPosition);
+        SimpleSearchStrategy strategy = new SimpleSearchStrategy();
         Player player = new Player(grid, playerPosition, strategy);
         List<Position> visitedPositionList = new ArrayList<>();
         assertTrue(player.find(playerPosition, Position.createPosition(grid, endPosition), visitedPositionList));
@@ -52,7 +50,7 @@ public class PlayerTest {
         final String plateauCoordinates = "3 3";
         Grid grid = new Grid(plateauCoordinates);
         Position playerPosition = Position.createPosition(grid, initialPosition);
-        TryAllPossibleDirectionsStrategy strategy = new TryAllPossibleDirectionsStrategy(playerPosition);
+        SimpleSearchStrategy strategy = new SimpleSearchStrategy();
         Player player = new Player(grid, playerPosition, strategy);
         List<Position> visitedPositionList = new ArrayList<>();
         player.find(playerPosition, Position.createPosition(grid, endPosition), visitedPositionList);
@@ -62,7 +60,7 @@ public class PlayerTest {
                         Position.createPosition(grid, "0 1"),
                         Position.createPosition(grid, "0 2")//,
                 ).toArray(new Position[3]),
-                visitedPositionList.toArray(new Position[strategy.getVisitedPositionList().size()]));
+                visitedPositionList.toArray(new Position[visitedPositionList.size()]));
 
     }
 
@@ -79,7 +77,7 @@ public class PlayerTest {
         grid.addWallAtCoordinates("0 2");
         grid.addWallAtCoordinates("1 2");
         Position playerPosition = Position.createPosition(grid, initialPosition);
-        TryAllPossibleDirectionsStrategy strategy = new TryAllPossibleDirectionsStrategy(playerPosition);
+        SimpleSearchStrategy strategy = new SimpleSearchStrategy();
         Player player = new Player(grid, playerPosition, strategy);
         List<Position> visitedPositionList = new ArrayList<>();
         assertTrue(player.find(playerPosition, Position.createPosition(grid, endPosition), visitedPositionList));
@@ -96,7 +94,7 @@ public class PlayerTest {
         grid.addWallAtCoordinates("0 2");
         grid.addWallAtCoordinates("1 2");
         Position playerPosition = Position.createPosition(grid, initialPosition);
-        TryAllPossibleDirectionsStrategy strategy = new TryAllPossibleDirectionsStrategy(playerPosition);
+        SimpleSearchStrategy strategy = new SimpleSearchStrategy();
         Player player = new Player(grid, playerPosition, strategy);
         List<Position> visitedPositionList = new ArrayList<>();
         player.find(playerPosition, Position.createPosition(grid, endPosition), visitedPositionList);
@@ -106,9 +104,7 @@ public class PlayerTest {
                         Position.createPosition(grid, "0 1"),
                         Position.createPosition(grid, "2 1")
                 ).toArray(new Position[3]),
-                visitedPositionList.toArray(new Position[strategy.getVisitedPositionList().size()]));
-
+                visitedPositionList.toArray(new Position[visitedPositionList.size()]));
     }
-
 
 }

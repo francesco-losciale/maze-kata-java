@@ -16,7 +16,7 @@ public class MazeMain {
             Grid grid = new Grid(mazeFileReader);
             Position playerPosition = Position.createPosition(grid, mazeFileReader.getInitialPosition());
             Position endPosition = Position.createPosition(grid, mazeFileReader.getEndPosition());
-            TryAllPossibleDirectionsStrategy searchStrategy = new TryAllPossibleDirectionsStrategy(playerPosition);
+            SimpleSearchStrategy searchStrategy = new SimpleSearchStrategy();
             Player player = new Player(grid, playerPosition, searchStrategy);
             player.find(playerPosition, endPosition);
             System.out.println(grid);

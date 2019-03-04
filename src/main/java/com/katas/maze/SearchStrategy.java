@@ -4,6 +4,5 @@ import java.util.List;
 
 public interface SearchStrategy {
 
-    public List<Character> getPossibleDirection(Position startPosition);
-    public List<Position> getVisitedPositionList();
+    List<Character> getPossibleDirection(Position startPosition);
 }
