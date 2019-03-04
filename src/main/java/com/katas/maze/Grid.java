@@ -40,7 +40,7 @@ public class Grid {
 
     public void drawPathIntoGrid(Position startPosition, Position endPosition, List<Position> visitedPositionList) {
         for (Position position : visitedPositionList) {
-            if (!position.equals(startPosition))
+            if (!position.equals(startPosition) && !position.equals(endPosition))
                 this.markCellUsed(position);
         }
     }
