@@ -38,6 +38,13 @@ public class Grid {
         setCellValue(position.getX(), position.getY(), 'X');
     }
 
+    public void drawPathIntoGrid(Position startPosition, Position endPosition, List<Position> visitedPositionList) {
+        for (Position position : visitedPositionList) {
+            if (!position.equals(startPosition))
+                this.markCellUsed(position);
+        }
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

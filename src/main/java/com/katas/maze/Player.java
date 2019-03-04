@@ -52,19 +52,12 @@ public class Player {
             Position newPosition = Position.calculateNextPosition(startPosition, direction);
             boolean found = find(newPosition, endPosition, visitedPositionList);
             if (found) {
-                drawPathIntoGrid(visitedPositionList);
+                this.grid.drawPathIntoGrid(this.position, endPosition, visitedPositionList);
                 return true;
             }
         }
         visitedPositionList.remove(startPosition);
         return false;
-    }
-
-    private void drawPathIntoGrid(List<Position> visitedPositionList) {
-        for (Position position : visitedPositionList) {
-            if (!position.equals(this.position))
-                grid.markCellUsed(position);
-        }
     }
 
 }
